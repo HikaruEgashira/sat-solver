@@ -1,0 +1,7 @@
+{
+  "[ocaml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "ocamllabs.ocaml-platform"
+  }
+}
