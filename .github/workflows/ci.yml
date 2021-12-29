@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ocaml-compiler: 4.13.x
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use OCaml ${{ env.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ env.ocaml-compiler }}
+          opam-pin: false
+          opam-depext: false
+          dune-cache: true
+
+      - run: opam install . --deps-only --with-test
+      - run: opam exec -- dune build
+      - run: opam exec -- dune runtest
+      - uses: ocaml/setup-ocaml/lint-fmt@v2
