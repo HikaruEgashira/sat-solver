@@ -3,5 +3,9 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "ocamllabs.ocaml-platform"
+  },
+  "ocaml.sandbox": {
+    "kind": "opam",
+    "switch": "default"
   }
 }
