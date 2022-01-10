@@ -3,16 +3,19 @@ let file = "./cnf/lesson1.dimacs" (* (P1∨P2)∧(￢P1∨P2)∧(￢P1∨￢P2) 
 let rec print_file channel =
   match input_line channel with
   | line -> print_endline line; print_file channel
-  | exception End_of_file -> () 
+  | exception End_of_file -> ()
 
 let () =
   let ic = open_in file in
   try 
-    print_file ic;               (* print the file *)
-    close_in ic                  (* 入力チャネルを閉じる *)
-  with e ->                      (* 期待しない例外が起こったとき *)
-    close_in_noerr ic;           (* 緊急にチャネルを閉じる *)
-    raise e                      (* エラー終了: ファイルは閉じられるが
-                                    チャネルはフラッシュされない *)
-
-  (* 通常終了: チャネルは全てフラッシュされて閉じられる *)
+    let line = input_line ic in (* line == p cnf <num_bers> <clauses_length> *)
+    match Str.split (Str.regexp " ") line with
+    | _::_::num::clo::_ ->
+      let num_vers = int_of_string num in
+      let num_clauses = int_of_string clo in
+      print_int (num_vers + num_clauses); print_endline ""; print_file ic
+    | _ -> ();
+    close_in ic
+  with e ->
+    close_in_noerr ic;
+    raise e
