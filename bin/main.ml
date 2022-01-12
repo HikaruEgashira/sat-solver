@@ -13,42 +13,39 @@ type cnf = {
 
 let file = "./cnf/lesson1.dimacs" (* (P1∨P2)∧(￢P1∨P2)∧(￢P1∨￢P2) *)
 
-(* debug *)
-let rec print_file channel =
-  match input_line channel with
-  | line -> print_endline line; print_file channel
-  | exception End_of_file -> ()
-
 (* parser *)
-let parse_clause stringlist =
-  let int_list = List.map int_of_string stringlist in
-  let lit_list = match List.rev int_list with
-  | 0::t -> List.rev t (* 末尾の0をいい感じに取りたかった *)
-  | _ -> raise (Parse_error "literal") in
-  let lits = List.map (fun x -> {var=x}) lit_list in
-  {lits=lits}
+let parse_clause string_list =
+  let lits = string_list
+  |> List.filter_map int_of_string_opt
+  |> List.filter (fun x -> x != 0)
+  |> List.map (fun x -> { var=x }) in
+  { lits=lits }
 
 let rec parse_clause_list channel =
   match input_line channel with
-  | line -> 
-    let clauses = parse_clause (Str.split (Str.regexp " ") line) in
-    let acc = parse_clause_list channel in
-    clauses :: acc
-  | exception End_of_file -> []
+  | exception End_of_file -> [] (* 終了条件 *)
+  | line ->
+    let clauses = line 
+    |> Str.split (Str.regexp " ")
+    |> parse_clause in
+    clauses :: parse_clause_list channel
 
 let parse_cnf channel =
-  let line = input_line channel in
-  match Str.split (Str.regexp " ") line with
-  | _::_::num::_ ->
-    let num_vars = int_of_string num in
-    let clauses = parse_clause_list channel in
-    {num_vars=num_vars; clauses=clauses}
-  | _ -> raise (Parse_error "DIMACS header mismatch\n")
+  let header = input_line channel
+  |> Str.split (Str.regexp " ") in
+
+  let num_vars = match header with (* 2番目の値を取りたいだけ *)
+  | _::_::num::_ -> int_of_string num
+  | _ -> raise (Parse_error "DIMACS header mismatch\n") in
+
+  let clauses = parse_clause_list channel in
+
+  {num_vars=num_vars; clauses=clauses}
 
 (* main *)
 let () =
   let ic = open_in file in
-  try 
+  try
     let cnf = parse_cnf ic in
     print_int cnf.num_vars; print_endline "";
     close_in ic;
