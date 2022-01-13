@@ -56,7 +56,7 @@ type lit = {
 
 ```ocaml
 type t = L_True | L_False | L_Undef
-type ret = t list (* [l_False, l_True], UNSATの場合は空配列 *)
+type ret = t list (* [L_False, L_True], UNSATの場合はL_Undefが含まれる *)
 ```
 
 - ファイルに出力すると以下のような形式になる

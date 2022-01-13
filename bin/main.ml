@@ -44,11 +44,13 @@ let list_join separator list =
   list |> List.fold_right (fun s x -> s ^ " " ^ x) |> fun x -> x separator
 
 let print_ret ret =
-  match ret with
-  | [] -> print_endline "UNSAT"
-  | l ->
-      let out_str =
-        l
+  let is_unsat = List.exists (fun x -> x = L_Undef) ret in
+
+  match is_unsat with
+  | true -> print_endline "UNSAT"
+  | false ->
+      let ret_str =
+        ret
         |> List.map (fun x ->
                match x with
                | L_True -> "True"
@@ -56,10 +58,10 @@ let print_ret ret =
                | L_Undef -> "Undef")
         |> list_join " "
       in
-      print_endline ("SAT\n" ^ out_str)
+      print_endline ("SAT\n" ^ ret_str)
 
 (* #solver *)
-let solve _cnf =
+let solve _cnf : ret =
   (* WIP *)
   let out = [ L_False; L_True ] in
   out
@@ -71,8 +73,8 @@ let () =
   let cnf = parse_cnf channel in
 
   (* solve *)
-  let out = solve cnf in
+  let ret = solve cnf in
 
   (* 出力 *)
-  print_ret out;
+  print_ret ret;
   close_in channel
