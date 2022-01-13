@@ -1,6 +1,11 @@
+(* cnf *)
 type lit = { var : int }
 type clause = { lits : lit list }
 type cnf = { num_vars : int; clauses : clause list }
+
+(* output *)
+type t = L_True | L_False | L_Undef
+type ret = t list
 
 exception Invalid_format
 
@@ -31,9 +36,35 @@ let parse_cnf channel =
   let clauses = get_clause_list channel in
   { num_vars; clauses }
 
+(* printer *)
+let print_ret ret =
+  match ret with
+  | [] -> print_endline "UNSAT"
+  | l ->
+      let out_str =
+        l
+        |> List.map (fun x ->
+               match x with
+               | L_True -> "True"
+               | L_False -> "False"
+               | L_Undef -> "Undef")
+        |> List.fold_right (fun s x -> s ^ " " ^ x)
+        |> fun x -> x " "
+      in
+      print_endline ("SAT\n" ^ out_str)
+
+(* solver *)
+let solve _cnf =
+  let out = [ L_False; L_True ] in
+  out
+
 (* main *)
 let () =
   let channel = open_in file in
   let cnf = parse_cnf channel in
+
   print_endline (string_of_int cnf.num_vars);
+  let out = solve cnf in
+
+  print_ret out;
   close_in channel

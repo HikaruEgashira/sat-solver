@@ -28,7 +28,7 @@ p cnf 2 3
 > 節の数 ... 3種類
 > 論理式 ... `(P1∨P2)∧(￢P1∨P2)∧(￢P1∨￢P2)`
 
-- このデータをOcaml上で扱いやすいように、以下のデータ構造に変換する
+- このデータをOCaml上で扱いやすいように、以下のデータ構造に変換する
 
 ```ocaml
 // CNF
@@ -55,7 +55,7 @@ type lit = {
 - cnfと
 
 ```ocaml
-type t = l_True | l_False | l_Undef
+type t = L_True | L_False | L_Undef
 type ret = t list (* [l_False, l_True], UNSATの場合は空配列 *)
 ```
 
