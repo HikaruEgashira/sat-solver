@@ -31,24 +31,24 @@ p cnf 2 3
 - このデータをOCaml上で扱いやすいように、以下のデータ構造に変換する
 
 ```ocaml
-// CNF
+(* CNF *)
 type cnf = {
     num_vars: int  (* 2 *)
     clauses: clause list (* [[1, 2], [-1, 2], [-1, -2]] *)
 }
 
-// 節
+(* 節 *)
 type clause = {
     lits: lit list (* [1, 2] *)
 }
 
-// リテラル
+(* リテラル *)
 type lit = {
     var: int (* 1, -2 *)
 }
 ```
 
-* 例外 `PARSE ERROR`, `FILE NOT FOUND`
+* 例外 `INVALID_FORMAT`, `FILE_NOT_EXIST`
 * 参考 <https://github.com/niklasso/minisat/blob/master/minisat/core/Dimacs.h>
 
 - 同時に出力するデータ構造も定義する

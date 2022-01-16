@@ -5,7 +5,7 @@ let list_join separator list =
   list |> List.fold_right (fun s x -> s ^ " " ^ x) |> fun x -> x separator
 
 let print_ret ret =
-  let is_unsat = List.exists (fun x -> x = L_Undef) ret in
+  let is_unsat = List.exists (fun x -> x = L_Undef) ret || ret == [] in
 
   match is_unsat with
   | true -> print_endline "UNSAT"
