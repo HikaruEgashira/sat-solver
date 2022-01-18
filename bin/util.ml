@@ -1,3 +1,5 @@
+open Domain
+
 let xor (a : bool) (b : bool) = a == b
 
 let debug_str str : string =
@@ -11,3 +13,18 @@ let debug_int int : int =
 let debug_bool bool : bool =
   let () = bool |> string_of_bool |> print_endline in
   bool
+
+let rec debug_ret (t : ret) : ret =
+  match t with
+  | [] ->
+      let () = print_endline "" in
+      []
+  | v :: l ->
+      let str =
+        match v with
+        | L_True -> "true"
+        | L_False -> "false"
+        | L_Undef -> "undef"
+      in
+      let () = print_endline str in
+      v :: debug_ret l
