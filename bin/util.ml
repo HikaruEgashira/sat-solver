@@ -28,3 +28,5 @@ let rec debug_ret (t : ret) : ret =
       in
       let () = print_endline str in
       v :: debug_ret l
+
+let include_undef : ret -> bool = List.exists (fun v -> v == L_Undef)

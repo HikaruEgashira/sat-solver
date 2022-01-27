@@ -6,7 +6,6 @@ let list_join separator list =
 
 let print_ret ret =
   let is_unsat = List.exists (fun x -> x = L_Undef) ret || ret == [] in
-
   match is_unsat with
   | true -> print_endline "UNSAT"
   | false ->
