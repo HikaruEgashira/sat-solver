@@ -4,8 +4,4 @@
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "ocamllabs.ocaml-platform"
   },
-  "ocaml.sandbox": {
-    "kind": "opam",
-    "switch": "default"
-  }
 }

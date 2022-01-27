@@ -1,12 +1,14 @@
 {
   "name": "ocaml",
   "dockerFile": "Dockerfile",
-  "forwardPorts": [3000],
+  "remoteUser": "opam",
+  "postCreateCommand": "dune build",
   "extensions": ["ocamllabs.ocaml-platform"],
   "settings": {
-    "ocaml.lsp.path": "/home/opam/.opam/4.10/bin/ocamllsp",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "ocaml.lsp.path": "/home/opam/.opam/4.13/bin/ocamllsp",
     "ocaml.sandbox": {
-      "switch": "4.10",
+      "switch": "4.13",
       "kind": "opam"
     }
   }

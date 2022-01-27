@@ -1,27 +1,16 @@
-FROM ocaml/opam2:latest
+FROM ocaml/opam:alpine
 
-ENV DEBIAN_FRONTEND=noninteractive
+COPY . /home/opam/workspace
+RUN sudo chown opam -R /home/opam/workspace
 
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-
-USER root
-
-RUN apt-get --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update \
-  && apt-get -y install --no-install-recommends m4 \
-  && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
-
-USER opam
+WORKDIR /home/opam/workspace
 
 RUN opam update && \
-  opam install \
+  opam pin add ocaml-lsp-server https://github.com/ocaml/ocaml-lsp.git \
+  opam install -y --deps-only \
   dune \
-  merlin 
+  ocaml-lsp-server \
+  ocamlformat.0.20.1
 
-RUN opam pin add ocaml-lsp-server https://github.com/ocaml/ocaml-lsp.git && \
-  opam install ocaml-lsp-server
-
-ENV DEBIAN_FRONTEND=dialog
+RUN eval $(opam env)
+# ENV PATH $PATH:/home/opam/.opam/4.13/bin
