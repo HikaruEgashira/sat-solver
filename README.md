@@ -8,7 +8,7 @@
 ## Usage
 
 ```ml
-dune exec sat_solver
+dune exec sat_solver -- ./cnf/lesson1.dimacs
 ```
 
 ## 仕様説明
