@@ -22,3 +22,8 @@ jobs:
       - run: opam install . --deps-only --with-test
       - run: opam exec -- dune build
       - run: opam exec -- dune runtest
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            _build/default/bin/main.exe
