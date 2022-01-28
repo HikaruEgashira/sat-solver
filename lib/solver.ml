@@ -7,9 +7,7 @@ let check_literal lit t =
   let lit_bool_b =
     match lit_label with L_False -> false | L_True -> true | L_Undef -> false
   in
-  xor lit_bool_a lit_bool_b
-
-(* TODO: List.for_all にする *)
+  not (xor lit_bool_a lit_bool_b)
 
 let rec check_clause lits t =
   match lits with
@@ -42,9 +40,6 @@ let rec rec_solve cnf ta tb : ret =
       else []
   | [] -> []
 
-(* let t = [ L_False; L_True ] in
-   let r = is_valid_cnf cnf.clauses t in
-   if r then t else [] *)
 let rec solve_rec cnf ret_left ret_right : ret =
   match ret_right with
   | L_Undef :: rest ->

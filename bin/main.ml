@@ -1,8 +1,6 @@
-open Parser
-open Printer
-open Solver
-
-exception Invalid_format
+open Sat_solver.Solver
+open Sat_solver.Parser
+open Sat_solver.Printer
 
 let usage_msg = "sat_solver <cnf-file>"
 let input_file = ref ""

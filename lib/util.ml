@@ -1,6 +1,6 @@
 open Domain
 
-let xor (a : bool) (b : bool) = a == b
+let xor (a : bool) (b : bool) = a != b
 
 let debug_str str : string =
   let () = print_endline str in

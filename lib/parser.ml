@@ -1,7 +1,6 @@
 open Domain
 
 let get_num_vars channel =
-  (* ここがやばい2022 *)
   let list = input_line channel |> Str.split (Str.regexp " ") in
   List.nth list 2 |> int_of_string
 
@@ -9,7 +8,7 @@ let parse_clause str =
   str
   |> Str.split (Str.regexp " ")
   |> List.map int_of_string
-  |> List.filter (fun x -> x != 0) (* 末尾の0を除く、上と関数合成したら逆に分かりにくくなるのでしない *)
+  |> List.filter (fun x -> x != 0)
   |> List.map (fun var -> { var })
   |> fun lits -> { lits }
 
