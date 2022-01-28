@@ -1,2 +1,3 @@
 (test
- (name sat_solver))
+ (name sat_solver)
+ (libraries sat_solver))
