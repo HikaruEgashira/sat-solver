@@ -1,12 +1,12 @@
-open Sat_solver.Solver
+open Sat_solver.Solver1
 open Sat_solver.Parser
 open Sat_solver.Printer
 
-let input_file = ref "../cnf/lesson1.dimacs"
+let input_file = "../cnf/lesson1.dimacs"
 
 let () =
   (* ファイルからCNFを生成 *)
-  let channel = open_in input_file.contents in
+  let channel = open_in input_file in
   let cnf = parse_cnf channel in
   close_in channel;
 
