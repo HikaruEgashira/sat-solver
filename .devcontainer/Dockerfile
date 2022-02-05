@@ -5,6 +5,7 @@ RUN opam update && \
   opam install -y\
   dune \
   ocaml-lsp-server \
+  ppx_inline_test \
   ocamlformat.0.20.1
 
 # opam env
