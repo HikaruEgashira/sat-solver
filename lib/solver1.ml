@@ -3,7 +3,7 @@ open Domain
 open Util
 
 let check_clause clause t =
-  List.find_opt (fun lit -> check_literal lit t) clause.lits |> Option.is_some
+  List.exists (fun lit -> check_literal lit t) clause.lits
 
 let check_cnf cnf t =
   List.for_all (fun clause -> check_clause clause t) cnf.clauses

@@ -1,4 +1,3 @@
-open Sat_solver.Solver1
 open Sat_solver.Parser
 open Sat_solver.Printer
 
@@ -11,7 +10,9 @@ let () =
   close_in channel;
 
   (* solve *)
-  let ret = solve cnf in
+  let ret1 = Sat_solver.Solver1.solve cnf in
+  let ret2 = Sat_solver.Solver2.solve cnf in
 
   (* 出力 *)
-  print_ret ret
+  print_ret ret1;
+  print_ret ret2
