@@ -39,3 +39,13 @@ let rec solve_rec cnf_clauses ret_left ret_right : ret =
 let solve cnf : ret =
   let t_base = List.init cnf.num_vars (fun _ -> L_Undef) in
   solve_rec cnf.clauses [] t_base
+
+let%test _ =
+  let input_file = "../cnf/lesson1.dimacs" in
+  let channel = open_in input_file in
+  let cnf = Parser.parse_cnf channel in
+  close_in channel;
+
+  let ret1 = Solver1.solve cnf in
+  let ret2 = solve cnf in
+  List.combine ret1 ret2 |> List.for_all (fun (x, y) -> x == y)

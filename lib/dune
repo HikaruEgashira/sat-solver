@@ -1,3 +1,5 @@
 (library
  (name sat_solver)
- (libraries str))
+ (libraries str)
+ (inline_tests)
+ (preprocess (pps ppx_inline_test)))
