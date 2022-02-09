@@ -24,9 +24,9 @@ let assign_cnf cnf_clauses ret : clause list =
 let rec solve_rec cnf_clauses ret_left ret_right : ret =
   match ret_right with
   | _ :: rest ->
-      let applied_cnf = assign_cnf cnf_clauses (ret_left @ ret_right) in
-      let case_true = solve_rec applied_cnf (ret_left @ [ Some true ]) rest in
-      let case_false = solve_rec applied_cnf (ret_left @ [ Some false ]) rest in
+      let new_cnf = assign_cnf cnf_clauses (ret_left @ ret_right) in
+      let case_true = solve_rec new_cnf (ret_left @ [ Some true ]) rest in
+      let case_false = solve_rec new_cnf (ret_left @ [ Some false ]) rest in
       if case_true != [] then case_true
       else if case_false != [] then case_false
       else []

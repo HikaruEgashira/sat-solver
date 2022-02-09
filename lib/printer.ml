@@ -1,11 +1,9 @@
-(* Util: separator で結合 *)
-let join_list list =
-  list |> List.fold_left (fun s x -> s ^ " " ^ x) "" |> String.trim
+open Util
 
 let string_of_t t =
   match t with Some true -> "True" | Some false -> "False" | None -> "Undef"
 
-let string_of_ret ret = ret |> List.map string_of_t |> join_list
+let string_of_ret ret = ret |> List.map string_of_t |> join_list_by " "
 
 let print_ret ret =
   let is_unsat = List.exists (fun x -> x == None) ret || ret == [] in

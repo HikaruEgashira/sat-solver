@@ -12,12 +12,12 @@ let parse_clause str =
   |> List.map (fun var -> { var })
   |> fun lits -> { lits }
 
-let rec get_clause_list channel =
+let rec get_clauses channel =
   match input_line channel with
   | exception End_of_file -> [] (* 終了条件 *)
-  | line -> parse_clause line :: get_clause_list channel
+  | line -> parse_clause line :: get_clauses channel
 
 let parse_cnf channel =
   let num_vars = get_num_vars channel in
-  let clauses = get_clause_list channel in
+  let clauses = get_clauses channel in
   { num_vars; clauses }

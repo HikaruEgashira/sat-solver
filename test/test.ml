@@ -1,10 +1,6 @@
 open Sat_solver
 
 let test =
-  let input_file = "../cnf/lesson1.dimacs" in
-  let channel = open_in input_file in
-  let cnf = Parser.parse_cnf channel in
-  close_in channel;
-
-  let ret = Solver_unit_propagation.solve cnf in
+  let cnf = Generator.generate_cnf 10 10 10 |> Util.debug_cnf in
+  let ret = Solver_breadth_first_search.solve cnf in
   Printer.print_ret ret

@@ -2,6 +2,12 @@
 open Domain
 open Util
 
+let is_literal_sat lit (ret : ret) =
+  let lit_label = get_label lit |> List.nth ret in
+  let lit_bool_a = get_bool lit in
+  let lit_bool_b = bool_of_t lit_label in
+  not (xor lit_bool_a lit_bool_b)
+
 let is_clause_sat clause ret =
   List.exists (fun lit -> is_literal_sat lit ret) clause.lits
 
@@ -29,5 +35,4 @@ let%test _ =
   close_in channel;
 
   let ret = solve cnf in
-  List.combine ret [ Some false; Some true ]
-  |> List.for_all (fun (x, y) -> x == y)
+  Util.is_equal ret [ Some false; Some true ]

@@ -34,12 +34,12 @@ p cnf 2 3
 (* CNF *)
 type cnf = {
     num_vars: int  (* 2 *)
-    clauses: clause list (* [[1, 2], [-1, 2], [-1, -2]] *)
+    clauses: clause list (* [[1; 2], [-1; 2], [-1; -2]] *)
 }
 
 (* 節 *)
 type clause = {
-    lits: lit list (* [1, 2] *)
+    lits: lit list (* [1; 2] *)
 }
 
 (* リテラル *)
@@ -55,8 +55,8 @@ type lit = {
 - cnfと
 
 ```ocaml
-type t = L_True | L_False | L_Undef
-type ret = t list (* [L_False, L_True], UNSATの場合はL_Undefが含まれる *)
+type t = bool option
+type ret = t list (* [Some false; Some true], UNSATの場合はNoneが含まれる *)
 ```
 
 - ファイルに出力すると以下のような形式になる
