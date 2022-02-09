@@ -1,4 +1,4 @@
-open Sat_solver.Solver2
+open Sat_solver.Solver_unit_propagation
 open Sat_solver.Parser
 open Sat_solver.Printer
 

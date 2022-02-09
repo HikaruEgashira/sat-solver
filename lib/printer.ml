@@ -1,20 +1,14 @@
-open Domain
-
 (* Util: separator で結合 *)
-let list_join list =
-  list |> List.fold_right (fun s x -> s ^ " " ^ x) |> fun x -> x " "
+let join_list list =
+  list |> List.fold_left (fun s x -> s ^ " " ^ x) "" |> String.trim
 
-let string_of_ret ret =
-  ret
-  |> List.map (fun x ->
-         match x with
-         | L_True -> "True"
-         | L_False -> "False"
-         | L_Undef -> "Undef")
-  |> list_join
+let string_of_t t =
+  match t with Some true -> "True" | Some false -> "False" | None -> "Undef"
+
+let string_of_ret ret = ret |> List.map string_of_t |> join_list
 
 let print_ret ret =
-  let is_unsat = List.exists (fun x -> x = L_Undef) ret || ret == [] in
+  let is_unsat = List.exists (fun x -> x == None) ret || ret == [] in
   match is_unsat with
   | true -> print_endline "UNSAT"
   | false ->
