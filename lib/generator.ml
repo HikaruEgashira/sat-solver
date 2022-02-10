@@ -8,15 +8,12 @@ let generate_lit num_vars : lit =
   let var = lit_label * lit_bool in
   { var }
 
-let generate_clauses num_vars max_length_clauses : clause =
-  let clause_length = rand max_length_clauses in
-  let lits = List.init clause_length (fun _ -> generate_lit num_vars) in
+let generate_clauses num_vars lit_length : clause =
+  let lits = List.init lit_length (fun _ -> generate_lit num_vars) in
   { lits }
 
-let generate_cnf max_vars max_length_clause max_length_lit : cnf =
-  let num_vars = rand max_vars in
-  let clause_length = rand max_length_clause in
+let generate_cnf num_vars lit_length clause_length : cnf =
   let clauses =
-    List.init clause_length (fun _ -> generate_clauses num_vars max_length_lit)
+    List.init clause_length (fun _ -> generate_clauses num_vars lit_length)
   in
   { num_vars; clauses }

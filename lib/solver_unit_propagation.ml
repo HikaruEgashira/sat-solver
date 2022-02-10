@@ -9,7 +9,7 @@ let rec rec_assign_clause old_lits new_lits ret =
   | [] -> new_lits
   | lit :: rest_lits ->
       if t_of_lit lit ret == None then
-        (* Undefだから節を残す *)
+        (* Noneだから節を残す *)
         rec_assign_clause rest_lits (lit :: new_lits) ret
       else if (* すでにTrueだから節ごと消す *) is_literal_sat lit ret then []
       else (* すでにFalseだからリテラルを消す *) rec_assign_clause rest_lits new_lits ret
@@ -18,7 +18,8 @@ let assign_clause clause_lits ret : clause =
   { lits = rec_assign_clause clause_lits [] ret }
 
 let assign_cnf cnf_clauses ret : clause list =
-  List.map (fun clause -> assign_clause clause.lits ret) cnf_clauses
+  cnf_clauses
+  |> List.map (fun clause -> assign_clause clause.lits ret)
   |> List.filter (fun clause -> clause.lits != [])
 
 let rec solve_rec cnf_clauses ret_left ret_right : ret =
@@ -44,5 +45,4 @@ let%test _ =
 
   let ret1 = Solver_breadth_first_search.solve cnf in
   let ret2 = solve cnf in
-  List.combine ret1 ret2
-  |> List.for_all (fun (x, y) -> Option.get x = Option.get y)
+  ret1 = ret2

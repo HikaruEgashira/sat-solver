@@ -35,4 +35,4 @@ let%test _ =
   close_in channel;
 
   let ret = solve cnf in
-  Util.is_equal ret [ Some false; Some true ]
+  ret = [ Some false; Some true ]

@@ -48,6 +48,3 @@ let t_of_lit lit (ret : ret) : t =
   let lit_label = get_label lit |> List.nth ret in
   let lit_bool_a = get_bool lit in
   Option.map (fun b -> xor lit_bool_a b) lit_label
-
-let is_equal ret1 ret2 =
-  List.combine ret1 ret2 |> List.for_all (fun (x, y) -> x == y)

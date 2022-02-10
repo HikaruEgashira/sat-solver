@@ -6,6 +6,7 @@ RUN opam update && \
   dune \
   ocaml-lsp-server \
   ppx_inline_test \
+  qcheck \
   ocamlformat.0.20.1
 
 # opam env
