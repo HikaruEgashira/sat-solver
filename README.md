@@ -69,3 +69,4 @@ SAT
 ## 参考
 
 - <https://www.craigfe.io/operator-lookup/>
+- <https://zenn.dev/hoddy3190/articles/4b7347ecd7ba59>

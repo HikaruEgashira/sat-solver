@@ -2,12 +2,7 @@ FROM ocaml/opam:alpine
 
 RUN opam update && \
   opam pin add ocaml-lsp-server https://github.com/ocaml/ocaml-lsp.git && \
-  opam install -y\
-  dune \
-  ocaml-lsp-server \
-  ppx_inline_test \
-  qcheck \
-  ocamlformat.0.20.1
+  opam install . --deps-only --with-test
 
 # opam env
 ENV OPAM_SWITCH_PREFIX /home/opam/.opam/4.13
