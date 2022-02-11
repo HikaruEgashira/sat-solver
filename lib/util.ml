@@ -17,20 +17,15 @@ let debug_bool v =
   v |> string_of_bool |> print_endline;
   v
 
-let rec debug_ret (ret : ret) : ret =
-  match ret with
-  | [] ->
-      print_endline "";
-      []
-  | v :: l ->
-      let str =
-        match v with
-        | Some true -> "True"
-        | Some false -> "False"
-        | None -> "Undef"
-      in
-      print_endline str;
-      v :: debug_ret l
+let debug_ret (ret : ret) : ret =
+  ret
+  |> List.map (fun v ->
+         match v with
+         | Some true -> "True"
+         | Some false -> "False"
+         | None -> "Undef")
+  |> join_list_by " " |> print_endline;
+  ret
 
 let string_of_lit lit = string_of_int lit.var
 

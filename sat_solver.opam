@@ -9,6 +9,5 @@ depends: [
     "dune"
     "ocaml-lsp-server"
     "ocamlformat" {= "0.20.1"}
-    "ppx_inline_test"
     "qcheck"
 ]
