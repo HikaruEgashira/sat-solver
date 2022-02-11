@@ -1,4 +1,4 @@
-open Sat_solver.Solver_unit_propagation
+open Sat_solver.Solver
 open Sat_solver.Parser
 open Sat_solver.Printer
 
@@ -16,7 +16,7 @@ let () =
   close_in channel;
 
   (* solve *)
-  let ret = solve cnf in
+  let ret = DPLL.solve cnf in
 
   (* 出力 *)
   print_ret ret

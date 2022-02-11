@@ -1,5 +1,5 @@
 (* 単位伝搬 *)
-open Solver_breadth_first_search
+open Solver_dfs
 open Domain
 open Util
 
