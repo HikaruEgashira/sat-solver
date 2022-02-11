@@ -9,10 +9,12 @@ let rec rec_assign_clause old_lits new_lits ret =
   | [] -> new_lits
   | lit :: rest_lits ->
       if t_of_lit lit ret == None then
-        (* Noneだから節を残す *)
+        (* Noneだからリテラルを残す *)
         rec_assign_clause rest_lits (lit :: new_lits) ret
       else if (* すでにTrueだから節ごと消す *) is_literal_sat lit ret then []
-      else (* すでにFalseだからリテラルを消す *) rec_assign_clause rest_lits new_lits ret
+      else
+        (* すでにFalseだからとりあえずリテラルを残す *)
+        rec_assign_clause rest_lits (lit :: new_lits) ret
 
 let assign_clause clause_lits ret : clause =
   { lits = rec_assign_clause clause_lits [] ret }

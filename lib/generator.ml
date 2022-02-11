@@ -12,7 +12,8 @@ let generate_clauses num_vars lit_length : clause =
   let lits = List.init lit_length (fun _ -> generate_lit num_vars) in
   { lits }
 
-let generate_cnf num_vars lit_length clause_length : cnf =
+let generate_cnf seed num_vars lit_length clause_length : cnf =
+  Random.init seed;
   let clauses =
     List.init clause_length (fun _ -> generate_clauses num_vars lit_length)
   in
