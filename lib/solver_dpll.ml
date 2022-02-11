@@ -13,7 +13,8 @@ let rec rec_assign_clause old_lits new_lits ret =
         rec_assign_clause rest_lits (lit :: new_lits) ret
       else if (* すでにTrueだから節ごと消す *) is_literal_sat lit ret then []
       else
-        (* すでにFalseだからとりあえずリテラルを残す *)
+        (* すでにFalseだからとりあえずリテラルを残す方針に。
+           ほんとは探索を終了したい *)
         rec_assign_clause rest_lits (lit :: new_lits) ret
 
 let assign_clause clause_lits ret : clause =
@@ -27,6 +28,7 @@ let assign_cnf cnf_clauses ret : clause list =
 let rec solve_rec cnf_clauses ret_left ret_right : ret =
   match ret_right with
   | _ :: rest ->
+      (* ↓ 割り当てが追加 *)
       let new_cnf = assign_cnf cnf_clauses (ret_left @ ret_right) in
       let case_true = solve_rec new_cnf (ret_left @ [ Some true ]) rest in
       let case_false = solve_rec new_cnf (ret_left @ [ Some false ]) rest in
