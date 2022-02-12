@@ -20,7 +20,7 @@ let _ =
 (* debug *)
 let _ =
   print_endline "CNF";
-  let cnf = Generator.generate_cnf 0 2 1 1 |> Util.debug_cnf in
+  let cnf = Generator.generate_cnf 0 2 2 4 |> Util.debug_cnf in
 
   print_endline "\noutput";
   print_endline "1";
@@ -45,7 +45,6 @@ let _ =
       |> Util.join_list_by " " |> print_endline
 
 let test1 =
-  (*  *)
   QCheck.Test.make ~name:"dpll should be same as dfs"
     QCheck.(quad int (1 -- 20) (1 -- 50) (1 -- 50))
     (fun (seed, v, l, c) ->

@@ -8,7 +8,7 @@ let parse_clause str =
   str
   |> Str.split (Str.regexp " ")
   |> List.map int_of_string
-  |> List.filter (fun x -> x != 0)
+  |> List.filter (fun x -> x <> 0)
   |> List.map (fun var -> { var })
   |> fun lits -> { lits }
 
