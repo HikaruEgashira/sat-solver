@@ -43,3 +43,9 @@ let t_of_lit lit (ret : ret) : t =
   let lit_label = get_label lit |> List.nth ret in
   let lit_bool_a = get_bool lit in
   Option.map (fun b -> xor lit_bool_a b) lit_label
+
+(* Seqeneseに処理する。名前ど忘れ *)
+let funcA l =
+  match List.exists Option.is_none l with
+  | true -> None
+  | false -> Some (List.map Option.get l)

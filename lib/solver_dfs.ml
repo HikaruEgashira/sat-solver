@@ -14,16 +14,16 @@ let is_clause_sat clause ret =
 let is_cnf_sat cnf_clauses ret =
   List.for_all (fun clause -> is_clause_sat clause ret) cnf_clauses
 
-let rec solve_rec cnf ret_left ret_right : ret =
+let rec solve_rec cnf ret_left ret_right : ret option =
   match ret_right with
   | _ :: rest ->
       let case_true = solve_rec cnf (ret_left @ [ Some true ]) rest in
       let case_false = solve_rec cnf (ret_left @ [ Some false ]) rest in
-      if case_true != [] then case_true
-      else if case_false != [] then case_false
-      else []
-  | [] -> if is_cnf_sat cnf ret_left then ret_left else []
+      if Option.is_some case_true then case_true
+      else if Option.is_some case_false then case_false
+      else None
+  | [] -> if is_cnf_sat cnf ret_left then Some ret_left else None
 
-let solve cnf : ret =
+let solve cnf : ret option =
   let t_base = List.init cnf.num_vars (fun _ -> None) in
   solve_rec cnf.clauses [] t_base

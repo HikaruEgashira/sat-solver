@@ -19,4 +19,4 @@ let () =
   let ret = DPLL.solve cnf in
 
   (* 出力 *)
-  print_ret ret
+  match ret with None -> print_endline "UNSAT" | Some ret -> print_ret ret

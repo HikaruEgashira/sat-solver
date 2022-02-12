@@ -1,7 +1,7 @@
 open Domain
 
 module type Solver = sig
-  val solve : cnf -> ret
+  val solve : cnf -> ret option
 end
 
 module DFS : Solver = struct

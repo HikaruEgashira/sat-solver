@@ -10,4 +10,4 @@ let _ =
   let new_clause_list = Solver_dpll.assign_cnf cnf.clauses ret in
 
   (* Trueなので空配列に *)
-  new_clause_list = []
+  new_clause_list = Some []
