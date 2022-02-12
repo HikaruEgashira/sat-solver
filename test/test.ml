@@ -18,33 +18,34 @@ let _ =
   output1 = output2
 
 (* debug *)
-let _ =
-  print_endline "CNF";
-  let cnf = Generator.generate_cnf 0 2 2 4 |> Util.debug_cnf in
+(* let _ =
+   print_endline "CNF";
+   let cnf = Generator.generate_cnf 76 3 4 25 |> Util.debug_cnf in
 
-  print_endline "\noutput";
-  print_endline "1";
-  let output1 = Solver.DFS.solve cnf |> Util.debug_output in
-  print_endline "2";
-  let output2 = Solver.DPLL.solve cnf |> Util.debug_output in
+   print_endline "\noutput";
+   print_endline "1";
+   let output1 = Solver.DFS.solve cnf |> Util.debug_output in
+   print_endline "2";
+   let output2 = Solver.DPLL.solve cnf |> Util.debug_output in
 
-  print_endline "\nASSIGN";
-  print_endline "1";
-  (match output1 with
-  | None -> print_endline "UNSAT"
-  | Some ts ->
-      Option.get (Solver_dpll.assign_cnf cnf.clauses ts)
-      |> List.map Util.string_of_caluse
-      |> Util.join_list_by " " |> print_endline);
-  print_endline "2";
-  match output2 with
-  | None -> print_endline "UNSAT"
-  | Some ts ->
-      Option.get (Solver_dpll.assign_cnf cnf.clauses ts)
-      |> List.map Util.string_of_caluse
-      |> Util.join_list_by " " |> print_endline
+   print_endline "\nASSIGN";
+   print_endline "1";
+   (match output1 with
+   | None -> print_endline "UNSAT"
+   | Some ts ->
+       Option.get (Solver_dpll.assign_cnf cnf.clauses ts)
+       |> List.map Util.string_of_caluse
+       |> Util.join_list_by " " |> print_endline);
+   print_endline "2";
+   match output2 with
+   | None -> print_endline "UNSAT"
+   | Some ts ->
+       Option.get (Solver_dpll.assign_cnf cnf.clauses ts)
+       |> List.map Util.string_of_caluse
+       |> Util.join_list_by " " |> print_endline *)
 
 let test1 =
+  (*  *)
   QCheck.Test.make ~name:"dpll should be same as dfs"
     QCheck.(quad int (1 -- 20) (1 -- 50) (1 -- 50))
     (fun (seed, v, l, c) ->
