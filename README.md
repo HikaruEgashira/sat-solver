@@ -56,7 +56,8 @@ type lit = {
 
 ```ocaml
 type t = bool option
-type ret = t list (* [Some false; Some true], UNSATの場合はNoneが含まれる *)
+type ts = t list
+type output = ts option (* [Some false; Some true], UNSATの場合はNoneが含まれる *)
 ```
 
 - ファイルに出力すると以下のような形式になる

@@ -16,7 +16,7 @@ let () =
   close_in channel;
 
   (* solve *)
-  let ret = DPLL.solve cnf in
+  let output = DPLL.solve cnf in
 
   (* 出力 *)
-  match ret with None -> print_endline "UNSAT" | Some ret -> print_ret ret
+  print_output output

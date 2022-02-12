@@ -17,15 +17,19 @@ let debug_bool v =
   v |> string_of_bool |> print_endline;
   v
 
-let debug_ret (ret : ret) : ret =
-  ret
-  |> List.map (fun v ->
-         match v with
-         | Some true -> "True"
-         | Some false -> "False"
-         | None -> "Undef")
-  |> join_list_by " " |> print_endline;
-  ret
+let debug_output (output : output) =
+  (match output with
+  | None -> "UNSAT"
+  | Some v ->
+      v
+      |> List.map (fun v ->
+             match v with
+             | Some true -> "True"
+             | Some false -> "False"
+             | None -> "Undef")
+      |> join_list_by " ")
+  |> print_endline;
+  output
 
 let string_of_lit lit = string_of_int lit.var
 
@@ -39,8 +43,8 @@ let debug_cnf cnf =
 
 let bool_of_t t = match t with Some v -> v | None -> false
 
-let t_of_lit lit (ret : ret) : t =
-  let lit_label = get_label lit |> List.nth ret in
+let t_of_lit lit (ts : ts) : t =
+  let lit_label = get_label lit |> List.nth ts in
   let lit_bool_a = get_bool lit in
   Option.map (fun b -> xor lit_bool_a b) lit_label
 

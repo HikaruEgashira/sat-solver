@@ -5,9 +5,9 @@ let _ =
   let cnf = Parser.parse_cnf channel in
   close_in channel;
 
-  (* cnf に retを割り当ててみる *)
-  let ret = [ Some false; Some false ] in
-  let new_clause_list = Solver_dpll.assign_cnf cnf.clauses ret in
+  (* cnf に outputを割り当ててみる *)
+  let output = [ Some false; Some false ] in
+  let new_clause_list = Solver_dpll.assign_cnf cnf.clauses output in
 
   (* Trueなので空配列に *)
   new_clause_list = Some []
