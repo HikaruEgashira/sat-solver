@@ -2,7 +2,7 @@
   "name": "ocaml",
   "dockerFile": "Dockerfile",
   "remoteUser": "opam",
-  "postCreateCommand": "dune build",
+  "postCreateCommand": "opam install . --deps-only --with-test && dune build",
   "extensions": ["ocamllabs.ocaml-platform"],
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash",

@@ -47,9 +47,9 @@ let _ =
 let test1 =
   (*  *)
   QCheck.Test.make ~name:"dpll should be same as dfs"
-    QCheck.(quad int (1 -- 20) (1 -- 50) (1 -- 50))
-    (fun (seed, v, l, c) ->
-      let cnf = Generator.generate_cnf seed v l c in
+    QCheck.(triple (1 -- 20) (1 -- 50) (1 -- 50))
+    (fun (v, l, c) ->
+      let cnf = Generator.generate_cnf v l c in
       let output1 = Solver.DFS.solve cnf in
       let output2 = Solver.DPLL.solve cnf in
 
